@@ -5,119 +5,163 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>미스터트롯4 최신 정리</title>
 <style>
-*{box-sizing:border-box}body{margin:0;background:#f3f6fb;color:#20242c;font-family:"Malgun Gothic","Apple SD Gothic Neo",sans-serif;line-height:1.8}
-.toolbar{position:sticky;top:0;z-index:20;background:#fff;border-bottom:1px solid #e5e9f0;padding:12px;display:flex;gap:10px;justify-content:center}
-button{border:0;border-radius:10px;padding:11px 16px;font-weight:800;cursor:pointer}.primary{background:#245fcb;color:#fff}.secondary{background:#edf3fb;color:#214d88}
-.wrap{max-width:900px;margin:22px auto 60px;background:#fff;border-radius:20px;overflow:hidden;box-shadow:0 10px 34px rgba(30,55,95,.10)}
-.hero{background:linear-gradient(135deg,#071633,#173f8f 55%,#4a207a);padding:48px 46px;color:#fff;position:relative;overflow:hidden}
-.hero:after{content:"";position:absolute;width:420px;height:420px;border-radius:50%;right:-100px;top:-140px;background:radial-gradient(circle,rgba(255,214,91,.7),transparent 65%)}
-.badge{display:inline-block;padding:6px 11px;border-radius:999px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.25);font-size:13px}
-.hero h1{font-size:46px;line-height:1.25;margin:14px 0 10px;letter-spacing:-1.5px}.hero h1 b{color:#ffd768}.hero p{font-size:19px;color:#e8edff;margin:0}
-.stage{height:190px;margin-top:25px;border-radius:18px;border:1px solid rgba(255,255,255,.18);position:relative;background:
-radial-gradient(circle at 20% 15%,rgba(255,210,100,.9) 0 2%,transparent 4%),
-radial-gradient(circle at 80% 12%,rgba(255,255,255,.9) 0 2%,transparent 4%),
-linear-gradient(110deg,transparent 0 20%,rgba(255,255,255,.18) 21% 25%,transparent 26% 50%,rgba(255,255,255,.12) 51% 55%,transparent 56%)}
-.mic{position:absolute;left:50%;bottom:22px;width:8px;height:95px;background:#ccd4e3;border-radius:4px}.mic:before{content:"";position:absolute;width:28px;height:42px;border-radius:14px;left:-10px;top:-28px;background:#dfe5ef}
-.article{padding:40px 52px 55px}.date{display:inline-block;background:#eaf2ff;color:#245fcb;padding:5px 10px;border-radius:999px;font-size:13px;font-weight:800}
-h2{font-size:27px;color:#153d79;border-left:6px solid #2d70d6;padding-left:12px;margin:40px 0 15px}p{font-size:17px;margin:0 0 17px}.lead{font-size:18px}
-ul,ol{background:#f7f9fc;border-radius:14px;padding:18px 24px 18px 46px}li{margin:6px 0}
-.info{margin:28px 0;padding:0;border-radius:18px;overflow:hidden;border:1px solid #e4e8f0}.info .head{background:#102a5c;color:#fff;padding:18px 22px;font-size:23px;font-weight:900}.grid{display:grid;grid-template-columns:1fr 1fr}.cell{padding:18px 20px;border-bottom:1px solid #edf0f5}.cell:nth-child(odd){border-right:1px solid #edf0f5}.cell b{display:block;color:#245fcb;margin-bottom:4px}
-.cards{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin:26px 0}.card{border:1px solid #e5e9f0;border-radius:16px;padding:20px;background:linear-gradient(180deg,#fff,#f8fbff)}.num{width:40px;height:40px;border-radius:50%;background:#245fcb;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:900;margin-bottom:10px}
-.summary{background:#fff8df;border:1px solid #f2dda0;border-radius:16px;padding:18px 20px}.tags{margin-top:28px;color:#285e9c;font-weight:800;word-spacing:4px}
-.note{font-size:14px;color:#667085;background:#f5f7fa;border-radius:12px;padding:15px 17px;margin-top:26px}
-@media(max-width:700px){.wrap{margin:0;border-radius:0}.hero{padding:30px 22px}.hero h1{font-size:32px}.article{padding:28px 20px}.grid,.cards{grid-template-columns:1fr}.cell:nth-child(odd){border-right:0}}
+*{box-sizing:border-box}
+body{margin:0;background:#f3f6fb;color:#20242c;font-family:"Malgun Gothic","Apple SD Gothic Neo",Arial,sans-serif;line-height:1.8}
+.toolbar{position:sticky;top:0;z-index:30;background:rgba(255,255,255,.98);border-bottom:1px solid #e4e9f1;padding:12px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.toolbar button{border:0;border-radius:10px;padding:12px 17px;font-weight:800;cursor:pointer}
+.primary{background:#245fcb;color:#fff}.secondary{background:#edf3fb;color:#214d88}
+.status{display:none;max-width:900px;margin:12px auto 0;padding:11px 14px;border-radius:10px;background:#e9f8ef;color:#17633a;font-weight:700;text-align:center}
+.guide{max-width:900px;margin:16px auto 0;background:#fff8de;border:1px solid #efdda0;border-radius:12px;padding:12px 16px;font-size:14px;color:#67561a}
+.wrap{max-width:900px;margin:18px auto 60px;background:#fff;border-radius:20px;overflow:hidden;box-shadow:0 10px 34px rgba(30,55,95,.10)}
+@media(max-width:700px){.wrap{margin:0;border-radius:0}.toolbar button{padding:10px 12px}}
 </style>
 </head>
 <body>
-<div class="toolbar">
-<button class="primary" onclick="copyAll()">글 전체 복사</button>
-<button class="secondary" onclick="copyText()">텍스트만 복사</button>
-<button class="secondary" onclick="window.print()">인쇄/PDF</button>
+<div class="toolbar" data-no-copy="true">
+  <button class="primary" onclick="copyFormatted()">양식 포함 전체 복사</button>
+  <button class="secondary" onclick="copyPlain()">텍스트만 복사</button>
+  <button class="secondary" onclick="window.print()">인쇄/PDF</button>
 </div>
-<main class="wrap" id="article">
-<section class="hero">
-<span class="badge">2026년 9월 26일 기준</span>
-<h1><b>미스터트롯4</b><br>언제 시작할까?</h1>
-<p>참가자 모집 · 새 시즌 준비 상황 · 관전 포인트 최신 정리</p>
-<div class="stage"><div class="mic"></div></div>
-</section>
-<article class="article">
-<span class="date">최신 정보 정리</span>
-<h2>미스터트롯4, 지금 어디까지 왔을까?</h2>
-<p class="lead">미스터트롯 시리즈를 좋아하는 분들이라면 가장 궁금한 게 바로 “미스터트롯4는 언제 시작하나?”일 것 같습니다.</p>
-<p>아직 본방송이 시작된 단계는 아니지만 프로그램은 분명히 움직이고 있습니다. 현재 TV CHOSUN에서는 <b>미스터트롯4 2차 참가자 모집</b>을 진행하고 있고, 새 시즌에 대한 관심도 다시 높아지고 있습니다.</p>
-
-<div class="info">
-<div class="head">미스터트롯4 참가자 모집 핵심 정보</div>
-<div class="grid">
-<div class="cell"><b>현재</b>2차 참가자 모집 진행 중</div>
-<div class="cell"><b>모집 기간</b>2026. 9. 1 ~ 9. 30</div>
-<div class="cell"><b>지원 대상</b>트로트를 사랑하는 남성</div>
-<div class="cell"><b>준비 자료</b>지원서 · 지원 영상 · 정면 사진</div>
-</div>
+<div class="status" id="copyStatus" data-no-copy="true">✓ 양식 포함 복사가 완료되었습니다. 네이버 블로그에서 Ctrl+V 하세요.</div>
+<div class="guide" data-no-copy="true">
+  <b>사용법:</b> 아래 글을 미리본 뒤 <b>‘양식 포함 전체 복사’</b> → 네이버 블로그 글쓰기 → <b>Ctrl+V</b>.<br>
+  제목 크기, 소제목, 굵기, 색상, 정보 박스, 목록 서식을 최대한 함께 복사하도록 만들었습니다.
 </div>
 
-<h2>참가자 모집, 무엇이 공개됐나</h2>
-<p>현재 공개된 내용의 핵심은 비교적 분명합니다. 2차 참가자 모집 마감은 <b>9월 30일</b>이며, 지원 대상은 트로트를 사랑하는 남성으로 안내되어 있습니다.</p>
-<ul>
-<li>공식 참가 지원서 작성</li>
-<li>간단한 자기소개 + 트로트 1~2곡</li>
-<li>5분 내외 지원 영상</li>
-<li>후반 작업 없는 원본 영상</li>
-<li>최근 촬영한 정면 얼굴 사진</li>
-<li>접수 이메일: <b>mrtrot4@daum.net</b></li>
-</ul>
+<main class="wrap">
+<article id="copyArea" style="background:#ffffff;color:#20242c;font-family:'Malgun Gothic','Apple SD Gothic Neo',Arial,sans-serif;line-height:1.82;">
 
-<h2>미스터트롯4가 기대되는 이유</h2>
-<div class="cards">
-<div class="card"><div class="num">1</div><b>새로운 트롯 스타</b><p>아직 알려지지 않은 참가자가 한순간에 대중의 주목을 받을 가능성이 있습니다.</p></div>
-<div class="card"><div class="num">2</div><b>현역과 신예의 경쟁</b><p>경력 많은 참가자와 신선한 얼굴이 맞붙는 순간이 큰 화제를 만들 수 있습니다.</p></div>
-<div class="card"><div class="num">3</div><b>시즌4만의 캐릭터</b><p>이전 시즌과 다른 음색, 이야기, 무대 장악력을 가진 참가자의 등장이 기대됩니다.</p></div>
-<div class="card"><div class="num">4</div><b>티저 보는 재미</b><p>첫 방송 전에 공개되는 티저만으로도 참가자와 프로그램 분위기를 미리 엿볼 수 있습니다.</p></div>
-</div>
+  <section style="background:#102a5c;padding:42px 46px 36px;color:#ffffff;text-align:left;">
+    <div style="display:inline-block;padding:5px 11px;border-radius:999px;background:#264b86;color:#ffffff;font-size:13px;font-weight:700;margin-bottom:14px;">2026년 9월 26일 기준 최신 정리</div>
+    <div style="font-size:42px;font-weight:900;line-height:1.25;letter-spacing:-1.5px;margin:0 0 10px;">
+      <span style="color:#ffd66b;">미스터트롯4</span><br>언제 시작할까?
+    </div>
+    <div style="font-size:18px;color:#e7edff;line-height:1.6;">참가자 모집 · 새 시즌 준비 상황 · 관전 포인트를 한눈에 정리했습니다.</div>
+    <div style="margin-top:25px;background:#173d7a;border:1px solid #5578b3;border-radius:16px;padding:24px;text-align:center;">
+      <div style="font-size:26px;font-weight:900;color:#ffd66b;margin-bottom:7px;">새로운 트롯 스타를 찾습니다</div>
+      <div style="font-size:16px;color:#f4f7ff;">참가자 모집이 시작되면서 미스터트롯4의 새 무대도 가까워지고 있습니다.</div>
+    </div>
+  </section>
 
-<h2>앞으로 꼭 체크하면 좋은 포인트</h2>
-<ol>
-<li><b>공식 참가자 명단</b> — 누가 새 시즌에 도전하는지</li>
-<li><b>마스터 라인업</b> — 심사와 진행을 누가 맡는지</li>
-<li><b>티저 영상</b> — 화제의 참가자와 시즌 분위기</li>
-<li><b>첫 방송 일정</b> — 최종 편성 시간과 1회 예고</li>
-</ol>
+  <div style="padding:38px 50px 52px;">
+    <p style="font-size:18px;line-height:1.9;margin:0 0 18px;">미스터트롯 시리즈를 좋아하는 분들이라면 요즘 가장 궁금한 게 바로 <b>“미스터트롯4는 언제 시작하나?”</b>일 것 같습니다.</p>
+    <p style="font-size:17px;line-height:1.9;margin:0 0 18px;">아직 본방송이 시작된 단계는 아니지만 프로그램은 분명히 움직이고 있습니다. 현재 TV CHOSUN에서는 <b>미스터트롯4 2차 참가자 모집</b>을 진행하고 있고, 새 시즌에 대한 관심도 다시 높아지고 있는데요.</p>
+    <p style="font-size:17px;line-height:1.9;margin:0 0 20px;">이번 글에서는 현재 공개된 핵심 정보와 참가자 모집 내용, 그리고 팬 입장에서 기대해볼 만한 관전 포인트를 보기 쉽게 정리해보겠습니다.</p>
 
-<h2>황가람도 미스터트롯4에 나올까?</h2>
-<p>최근 TV CHOSUN ‘미스트롯 포유’에서 황가람이 처음으로 트롯 무대를 선보이자 김용빈이 “미스터트롯4에는 나오지 않았으면 좋겠다. 저희 자리가 없어질 것 같다”고 농담해 웃음을 안겼습니다.</p>
-<p>다만 이는 방송 속 재미있는 반응일 뿐, <b>황가람의 미스터트롯4 참가가 공식 확정됐다는 의미는 아닙니다.</b> 실제 참가 여부는 향후 공식 참가자 공개를 통해 확인하는 것이 정확합니다.</p>
+    <h2 style="font-size:27px;font-weight:900;color:#153d79;line-height:1.45;margin:40px 0 16px;padding-left:13px;border-left:6px solid #2d70d6;">미스터트롯4, 지금 어디까지 왔을까?</h2>
+    <p style="font-size:17px;line-height:1.9;margin:0 0 17px;">현재 기준으로 가장 뚜렷하게 확인되는 내용은 <b>‘참가자 모집 진행 중’</b>이라는 점입니다. 새 시즌이 본격적인 공개를 앞두고 있다는 의미이기도 하죠.</p>
+    <p style="font-size:17px;line-height:1.9;margin:0 0 22px;">아직 공식 참가자 전체 명단이나 세부 편성 정보가 모두 공개된 것은 아니지만, 모집 단계에 들어갔다는 것만으로도 시즌4가 실제로 움직이고 있다는 신호로 볼 수 있습니다.</p>
 
-<div class="summary">
-<b>📌 미스터트롯4 핵심 요약</b>
-<ul>
-<li>새 시즌 준비 및 참가자 모집 진행 중</li>
-<li>2차 모집 기간: 2026년 9월 1일 ~ 9월 30일</li>
-<li>지원 대상: 트로트를 사랑하는 남성</li>
-<li>준비 자료: 지원서 + 지원 영상 + 정면 사진</li>
-<li>앞으로 참가자·마스터·티저·첫 방송 편성 발표 주목</li>
-</ul>
-</div>
+    <div style="margin:26px 0 30px;border:1px solid #dfe5ef;border-radius:16px;overflow:hidden;background:#ffffff;">
+      <div style="background:#173d79;color:#ffffff;padding:17px 20px;font-size:22px;font-weight:900;">미스터트롯4 참가자 모집 핵심 정보</div>
+      <div style="padding:0 20px;">
+        <div style="padding:15px 0;border-bottom:1px solid #edf0f5;font-size:16px;"><b style="display:inline-block;width:120px;color:#245fcb;">현재</b>2차 참가자 모집 진행 중</div>
+        <div style="padding:15px 0;border-bottom:1px solid #edf0f5;font-size:16px;"><b style="display:inline-block;width:120px;color:#245fcb;">모집 기간</b>2026년 9월 1일 ~ 9월 30일</div>
+        <div style="padding:15px 0;border-bottom:1px solid #edf0f5;font-size:16px;"><b style="display:inline-block;width:120px;color:#245fcb;">지원 대상</b>트로트를 사랑하는 남성</div>
+        <div style="padding:15px 0;font-size:16px;"><b style="display:inline-block;width:120px;color:#245fcb;">준비 자료</b>지원서 · 지원 영상 · 정면 사진</div>
+      </div>
+    </div>
 
-<h2>마무리</h2>
-<p>미스터트롯4는 아직 모든 정보가 공개된 단계는 아니지만, 참가자 모집이 진행되면서 새 판이 열리고 있다는 분위기는 분명합니다.</p>
-<p>개인적으로는 누가 우승할지보다 첫 회부터 “저 사람 누구지?”라는 궁금증을 만드는 새로운 얼굴이 등장할지가 더 기대됩니다. 트로트 오디션을 좋아하신다면 지금부터 공식 발표를 하나씩 따라가 보는 재미도 꽤 클 것 같습니다.</p>
+    <h2 style="font-size:27px;font-weight:900;color:#153d79;line-height:1.45;margin:40px 0 16px;padding-left:13px;border-left:6px solid #2d70d6;">참가자 모집, 무엇이 공개됐나</h2>
+    <p style="font-size:17px;line-height:1.9;margin:0 0 16px;">현재 공개된 내용의 핵심은 비교적 분명합니다. 2차 참가자 모집 마감은 <b>9월 30일</b>이며, 지원 대상은 트로트를 사랑하는 남성으로 안내돼 있습니다.</p>
 
-<p class="tags">#미스터트롯4 #미스터트롯4언제 #미스터트롯4참가자 #미스터트롯4모집 #미스터트롯4지원 #미스터트롯 #트로트오디션 #TV조선 #트로트 #트롯스타 #예능소식 #미스터트롯최신소식</p>
-<p class="note">※ 본 글은 2026년 9월 26일 기준 공개된 모집 정보와 TV CHOSUN 관련 공식 자료를 바탕으로 정리했습니다. 세부 방송 일정과 참가자·마스터 라인업은 추후 공식 발표에서 다시 확인하는 것이 좋습니다.</p>
+    <div style="background:#f7f9fc;border-radius:14px;padding:18px 22px;margin:18px 0 26px;font-size:16px;line-height:1.9;">
+      <div style="margin:4px 0;">✔ 공식 참가 지원서 작성</div>
+      <div style="margin:4px 0;">✔ 간단한 자기소개 + 트로트 1~2곡</div>
+      <div style="margin:4px 0;">✔ 5분 내외 지원 영상</div>
+      <div style="margin:4px 0;">✔ 후반 작업 없는 원본 영상</div>
+      <div style="margin:4px 0;">✔ 최근 촬영한 정면 얼굴 사진</div>
+      <div style="margin:4px 0;">✔ 접수 이메일: <b>mrtrot4@daum.net</b></div>
+    </div>
+
+    <h2 style="font-size:27px;font-weight:900;color:#153d79;line-height:1.45;margin:40px 0 16px;padding-left:13px;border-left:6px solid #2d70d6;">미스터트롯4가 기대되는 이유</h2>
+
+    <div style="display:block;margin:22px 0;">
+      <div style="background:#f4f8ff;border:1px solid #dfe8f7;border-radius:14px;padding:18px 20px;margin-bottom:12px;">
+        <div style="font-size:19px;font-weight:900;color:#174a91;margin-bottom:6px;">01 새로운 트롯 스타의 탄생</div>
+        <div style="font-size:16px;line-height:1.8;">아직 많이 알려지지 않은 참가자가 한순간에 대중의 주목을 받을 수 있습니다.</div>
+      </div>
+      <div style="background:#fff8e9;border:1px solid #f0e0b3;border-radius:14px;padding:18px 20px;margin-bottom:12px;">
+        <div style="font-size:19px;font-weight:900;color:#8b6514;margin-bottom:6px;">02 현역과 신예의 의외의 경쟁</div>
+        <div style="font-size:16px;line-height:1.8;">경력 많은 참가자와 신선한 얼굴이 맞붙는 순간은 언제나 큰 화제를 만듭니다.</div>
+      </div>
+      <div style="background:#f8f2ff;border:1px solid #e5d9f4;border-radius:14px;padding:18px 20px;margin-bottom:12px;">
+        <div style="font-size:19px;font-weight:900;color:#7042a8;margin-bottom:6px;">03 시즌4만의 새로운 캐릭터</div>
+        <div style="font-size:16px;line-height:1.8;">이전 시즌과는 또 다른 음색과 이야기, 무대 장악력을 가진 참가자가 등장할 가능성이 큽니다.</div>
+      </div>
+      <div style="background:#eefaf5;border:1px solid #d2ede1;border-radius:14px;padding:18px 20px;">
+        <div style="font-size:19px;font-weight:900;color:#24785a;margin-bottom:6px;">04 본방 전 티저를 기다리는 재미</div>
+        <div style="font-size:16px;line-height:1.8;">첫 방송 전에 공개되는 짧은 티저만으로도 참가자와 시즌 분위기를 미리 엿볼 수 있습니다.</div>
+      </div>
+    </div>
+
+    <h2 style="font-size:27px;font-weight:900;color:#153d79;line-height:1.45;margin:40px 0 16px;padding-left:13px;border-left:6px solid #2d70d6;">앞으로 꼭 체크하면 좋은 포인트</h2>
+    <div style="background:#f7f9fc;border-radius:14px;padding:18px 22px;margin:18px 0 26px;font-size:16px;line-height:1.9;">
+      <div style="margin:4px 0;"><b>① 공식 참가자 명단</b> — 누가 새 시즌에 도전하는지</div>
+      <div style="margin:4px 0;"><b>② 마스터 라인업</b> — 심사와 진행을 누가 맡는지</div>
+      <div style="margin:4px 0;"><b>③ 티저 영상</b> — 화제의 참가자와 시즌 분위기</div>
+      <div style="margin:4px 0;"><b>④ 첫 방송 일정</b> — 최종 편성 시간과 1회 예고</div>
+    </div>
+
+    <h2 style="font-size:27px;font-weight:900;color:#153d79;line-height:1.45;margin:40px 0 16px;padding-left:13px;border-left:6px solid #2d70d6;">황가람도 미스터트롯4에 나올까?</h2>
+    <p style="font-size:17px;line-height:1.9;margin:0 0 16px;">최근 TV CHOSUN ‘미스트롯 포유’에서 황가람이 처음으로 트롯 무대를 선보이자 김용빈이 “미스터트롯4에는 나오지 않았으면 좋겠다. 저희 자리가 없어질 것 같다”고 농담해 웃음을 안겼습니다.</p>
+    <p style="font-size:17px;line-height:1.9;margin:0 0 18px;">다만 이는 방송 속 재미있는 반응일 뿐, <b>황가람의 미스터트롯4 참가가 공식 확정됐다는 의미는 아닙니다.</b> 실제 참가 여부는 향후 공식 참가자 공개를 통해 확인하는 것이 정확합니다.</p>
+
+    <div style="background:#fff8df;border:1px solid #f2dda0;border-radius:16px;padding:20px 22px;margin:32px 0;">
+      <div style="font-size:22px;font-weight:900;color:#785a16;margin-bottom:10px;">📌 미스터트롯4 핵심 요약</div>
+      <div style="font-size:16px;line-height:1.9;">• 새 시즌 준비 및 참가자 모집 진행 중</div>
+      <div style="font-size:16px;line-height:1.9;">• 2차 모집 기간: 2026년 9월 1일 ~ 9월 30일</div>
+      <div style="font-size:16px;line-height:1.9;">• 지원 대상: 트로트를 사랑하는 남성</div>
+      <div style="font-size:16px;line-height:1.9;">• 준비 자료: 지원서 + 지원 영상 + 정면 사진</div>
+      <div style="font-size:16px;line-height:1.9;">• 앞으로 참가자·마스터·티저·첫 방송 편성 발표 주목</div>
+    </div>
+
+    <h2 style="font-size:27px;font-weight:900;color:#153d79;line-height:1.45;margin:40px 0 16px;padding-left:13px;border-left:6px solid #2d70d6;">마무리</h2>
+    <p style="font-size:17px;line-height:1.9;margin:0 0 16px;">미스터트롯4는 아직 모든 정보가 공개된 단계는 아니지만, 참가자 모집이 진행되면서 새 판이 열리고 있다는 분위기는 분명합니다.</p>
+    <p style="font-size:17px;line-height:1.9;margin:0 0 24px;">개인적으로는 누가 우승할지보다 첫 회부터 “저 사람 누구지?”라는 궁금증을 만드는 새로운 얼굴이 등장할지가 더 기대됩니다. 트로트 오디션을 좋아하신다면 지금부터 공식 발표를 하나씩 따라가 보는 재미도 꽤 클 것 같습니다.</p>
+
+    <div style="font-size:16px;font-weight:800;color:#285e9c;line-height:2;word-break:keep-all;">
+      #미스터트롯4 #미스터트롯4언제 #미스터트롯4참가자 #미스터트롯4모집 #미스터트롯4지원 #미스터트롯 #트로트오디션 #TV조선 #트로트 #트롯스타 #예능소식 #미스터트롯최신소식
+    </div>
+
+    <div style="font-size:13px;color:#687386;background:#f5f7fa;border-radius:12px;padding:14px 16px;margin-top:24px;line-height:1.7;">
+      ※ 본 글은 2026년 9월 26일 기준 공개된 모집 정보와 TV CHOSUN 관련 공식 자료를 바탕으로 정리했습니다. 세부 방송 일정과 참가자·마스터 라인업은 추후 공식 발표에서 다시 확인하는 것이 좋습니다.
+    </div>
+  </div>
 </article>
 </main>
+
 <script>
-async function copyAll(){
- const el=document.getElementById('article');
- const h=el.innerHTML,t=el.innerText;
- try{
-  await navigator.clipboard.write([new ClipboardItem({'text/html':new Blob([h],{type:'text/html'}),'text/plain':new Blob([t],{type:'text/plain'})})]);
-  alert('전체 내용을 복사했습니다. 네이버 블로그에서 Ctrl+V 하세요.');
- }catch(e){
-  const r=document.createRange();r.selectNodeContents(el);const s=window.getSelection();s.removeAllRanges();s.addRange(r);document.execCommand('copy');s.removeAllRanges();alert('전체 내용을 복사했습니다.');
- }
+function flash(){
+  const s=document.getElementById('copyStatus');
+  s.style.display='block';
+  setTimeout(()=>s.style.display='none',2600);
 }
-async function copyText(){await navigator.clipboard.writeText(document.getElementById('article').innerText);alert('텍스트를 복사했습니다.');}
+async function copyFormatted(){
+  const el=document.getElementById('copyArea');
+  const html='<!doctype html><html><body>'+el.outerHTML+'</body></html>';
+  const text=el.innerText;
+  try{
+    await navigator.clipboard.write([
+      new ClipboardItem({
+        'text/html':new Blob([html],{type:'text/html'}),
+        'text/plain':new Blob([text],{type:'text/plain'})
+      })
+    ]);
+    flash();
+  }catch(e){
+    const r=document.createRange();
+    r.selectNodeContents(el);
+    const s=window.getSelection();
+    s.removeAllRanges();s.addRange(r);
+    document.execCommand('copy');
+    s.removeAllRanges();
+    flash();
+  }
+}
+async function copyPlain(){
+  await navigator.clipboard.writeText(document.getElementById('copyArea').innerText);
+  alert('텍스트만 복사했습니다.');
+}
 </script>
 </body></html>
